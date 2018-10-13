@@ -1,14 +1,13 @@
 module.exports = function (keys, Op, schemas, uidgen, transporter) {
 
 	var User = schemas.User;
-
+	var bcrypt = require('bcryptjs');
 	return {
 		signup: function (req, res) {
 
 			var userData = req.body;
 
 			User.create(userData).then(function (userCreated) {
-
 				User.findAll({ where: { token: { [Op.ne]: null } }, attributes: ['token'] }).then(function (tokens) {
 
 					var token = uidgen.generateSync();
@@ -41,28 +40,38 @@ module.exports = function (keys, Op, schemas, uidgen, transporter) {
 		login: function (req, res) {
 
 			var userData = req.body;
+			User.find({ where: { email: userData.email } }).then(function (userFound) {
+				User.findAll({ where: { token: { [Op.ne]: null } }, attributes: ['token'] }).then(function (tokens) {
+					if (userFound) {
+						bcrypt.compare(userData.password, userFound.password, function (err, result) {
+							if (result) {
+								var token = uidgen.generateSync();
 
-			User.findAll({ where: { token: { [Op.ne]: null } }, attributes: ['token'] }).then(function (tokens) {
+								while (tokens.some(e => e.token === token)) {
+									token = uidgen.generateSync();
+								}
+								User.update({ token: token }, { where: userFound.dataValues }).then(function (result) {
+									console.log(result)
+									if (result[0] > 0) {
+										var user_email = req.body.email;
+										User.find({ where: { email: user_email } }).then(function (userDB) {
 
-				var token = uidgen.generateSync();
-
-
-				while (tokens.some(e => e.token === token)) {
-					token = uidgen.generateSync();
-				}
-
-				User.update({ token: token }, { where: userData }).then(function (result) {
-					if (result[0] > 0) {
-						var user_email = req.body.email;
-						User.find({ where: { email: user_email } }).then(function (userDB) {
-
-							return res.json({ success: true, token: token, user: userDB });
-						})
+											return res.json({ success: true, token: token, user: userDB });
+										})
+									} else {
+										return res.status(400).json({ success: false });
+									}
+								}).catch(function (err) {
+									return res.status(400).json({ success: false, err: err });
+								});
+							} else {
+								return res.status(400).json({ message: "Incorrect password" });
+							}
+						});
 					} else {
-						return res.status(400).json({ success: false });
+						return res.status(400).json({ message: "User not found" });
+
 					}
-				}).catch(function (err) {
-					return res.status(400).json({ success: false, err: err });
 				});
 			});
 
@@ -73,10 +82,12 @@ module.exports = function (keys, Op, schemas, uidgen, transporter) {
 			var user = res.locals.user;
 
 			var password = req.body.password;
-
-			User.update({ password: password }, { where: { email: user.email } }).then(function (userDB) {
-				return res.json({ success: true, message: 'Password Changed' });
-			})
+			bcrypt.hash(password, 10).then(hash => {
+				password = hash;
+				User.update({ password: password }, { where: { email: user.email } }).then(function (userDB) {
+					return res.json({ success: true, message: 'Password Changed' });
+				})
+			});
 		},
 
 		resetPassword: function (req, res) {
