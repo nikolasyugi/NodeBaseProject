@@ -12,6 +12,14 @@ module.exports = function(){
 	modules.bodyParser     	= require('body-parser');
 	//https://github.com/expressjs/method-override
 	modules.methodOverride 	= require('method-override');
+	// http://docs.sequelizejs.com/en/latest/
+	modules.Sequelize		= require('sequelize');
+	//https://www.npmjs.com/package/uid-generator
+	modules.UIDGenerator 	= require('uid-generator');
+	// https://github.com/nodemailer/nodemailer
+	modules.nodemailer 		= require('nodemailer');
+	// https://www.npmjs.com/package/request
+	modules.request 		= require('request');
 
 	return modules;
 }

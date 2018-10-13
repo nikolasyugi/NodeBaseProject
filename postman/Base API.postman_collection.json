@@ -1,0 +1,537 @@
+{
+	"info": {
+		"_postman_id": "dd21b1a6-4f2d-4e94-8a3e-c87469b24725",
+		"name": "Base API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Sign Up",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Admin\",\n  \"lastName\": \"Teste\",\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\",\n  \"occupation\": 0\n}"
+								},
+								"url": {
+									"raw": "{{local}}/v1/signup",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\"\n}"
+								},
+								"url": {
+									"raw": "{{local}}/v1/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{local}}/v1/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Jhonson\",\n  \"lastName\": \"Fuentez\",\n  \"email\": \"teste@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{local}}/v1/user",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"teste@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{local}}/v1/reset-password",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"4321\"  \n}"
+								},
+								"url": {
+									"raw": "{{local}}/v1/change-password",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Test",
+					"item": [
+						{
+							"name": "API Test Auth",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n  \"lat\":\"37.776289\",\n  \"long\":\"-122.395234\"\n}\n"
+								},
+								"url": {
+									"raw": "{{local}}/v1/testAuth",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"testAuth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "API Test",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{local}}/v1/test",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Remote",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Sign Up",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Admin\",\n  \"lastName\": \"Teste\",\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\",\n  \"occupation\": 0\n}"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/signup",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\"\n}"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/login",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{remote}}/v1/user",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Jhonson\",\n  \"lastName\": \"Fuentez\",\n  \"email\": \"teste@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/user",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"teste@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/reset-password",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"password\": \"4321\"  \n}"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/change-password",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Test",
+					"item": [
+						{
+							"name": "API Test Auth",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n  \"lat\":\"37.776289\",\n  \"long\":\"-122.395234\"\n}\n"
+								},
+								"url": {
+									"raw": "{{remote}}/v1/testAuth",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"testAuth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "API Test",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "{{remote}}/v1/test",
+									"host": [
+										"{{remote}}"
+									],
+									"path": [
+										"v1",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5f40183f-fe78-4d07-bfd9-1d71eec642b3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d0a0b973-54a5-4c8f-a011-0fdf4f43e092",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "24bddda2-e0c0-48a4-94b0-9d5f3a7bb6a8",
+			"key": "local",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"id": "2439012a-3fdc-44b2-a5bd-305577c7ff27",
+			"key": "remote",
+			"value": "https://base-api.herokuapp.com",
+			"type": "string"
+		}
+	]
+}

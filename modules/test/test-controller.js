@@ -1,10 +1,19 @@
-module.exports = function (){
+module.exports = function (schemas) {
 
-  return {
-    get: function (req, res) {
+	var User = schemas.User;
 
-    	return res.json({success: true});
 
-    }
-  }
+	return {
+		get: function (req, res) {
+
+			return res.json({ message: 'API is working!' })
+
+		},
+
+		getAuth: function (req, res) {
+
+			return res.json({ message: 'You\'re authorized!' })
+
+		}
+	}
 }

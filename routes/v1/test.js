@@ -1,11 +1,17 @@
-module.exports = function (moduleTest){
-  
-  var controllers = moduleTest.controllers;
+module.exports = function (middlewares, moduleTest){
 
-  return function(router){
-    router.get("/test", function(req, res){
-    	controllers.test.get(req, res);
-    });
-  }
+	var auth = middlewares.auth;
+  
+  	var controllers = moduleTest.controllers;
+
+  	return function(router){
+		router.get("/test", function(req, res){
+    		controllers.test.get(req, res);
+		});
+		
+    	router.get("/testAuth", auth.checkToken, function(req, res){
+    		controllers.test.get(req, res);
+    	});
+  	}
 
 }

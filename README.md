@@ -9,10 +9,7 @@ Para um melhor entendimento deste projeto, deve-se ter um conhecimento básico d
 ## Branches
 
 Esse projeto base tem como objetivo facilitar a construção de uma API REST sem precisar se proecupar com a configuração inicial.
-Como alguns projetos costumam ter algumas particularidades, as branches começadas em ```???``` são projetos base que já vem com algumas particularidades implementadas.
-Na lista a seguir se encontram as branches que possuem algo já implementado:
 
-* **[???-](http://google.com)** - Branc
 
 ## Instalação
 
@@ -40,4 +37,12 @@ Essa arquitetura consiste de 3 partes principais, o app.js, server.js e modules.
 
 ## Testando a API
 
-Se o projeto for iniciado com sucesso, ele estará roteando a API para a porta 3000 do seu computador. Para testar o modulo 'teste', digite ```localhost:3000``` no seu navegador. O programa deverá imprimir um json ```{success: true}```na tela.
+Se o projeto for iniciado com sucesso, ele estará roteando a API para a porta 3000 do seu computador. Para testar o modulo 'teste', digite ```localhost:3000/v1/test``` no seu navegador. O programa deverá imprimir um json ```{message: API is working!}```na tela.
+
+## DB and keys
+
+É importante configurar as variáveis do banco de dados e senhas nas config vars do heroku, tendo em mente que essas serão lidas pelo arquivo keys.js para funcionar.
+
+## Postman
+
+Mude o nome da variável {{remote}} para a URL remota do seu aplicativo antes de utilizar o postman.
