@@ -7,7 +7,7 @@ module.exports = function (keys, Op, schemas, uidgen, transporter) {
 
 			var userData = req.body;
 
-			User.create(userData).then(function (result) {
+			User.create(userData).then(function (userCreated) {
 
 				User.findAll({ where: { token: { [Op.ne]: null } }, attributes: ['token'] }).then(function (tokens) {
 
@@ -17,7 +17,7 @@ module.exports = function (keys, Op, schemas, uidgen, transporter) {
 						token = uidgen.generateSync();
 					}
 
-					User.update({ token: token }, { where: userData }).then(function (quantity) {
+					User.update({ token: token }, { where: userCreated.dataValues }).then(function (quantity) {
 						if (quantity[0] > 0) {
 							var user_email = req.body.email;
 							User.find({ where: { email: user_email } }).then(function (userDB) {

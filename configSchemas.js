@@ -1,8 +1,8 @@
-module.exports = function (Sequelize, sequelize) {
+module.exports = function (Sequelize, sequelize, bcrypt) {
 
 	//Schema
 	var schema = {};
-	schema.User = require(__basedir + '/models/User.js')(Sequelize, sequelize);
+	schema.User = require(__basedir + '/models/User.js')(Sequelize, sequelize, bcrypt);
 
 
 	// Schema Assotiations

@@ -1,4 +1,4 @@
-module.exports = function (Sequelize, sequelize) {
+module.exports = function (Sequelize, sequelize, bcrypt) {
 
 	var User = sequelize.define('User', {
 		user_id: {
@@ -21,6 +21,18 @@ module.exports = function (Sequelize, sequelize) {
 		token: Sequelize.TEXT,
 		token_update: Sequelize.DATE,
 		new_password_token: Sequelize.TEXT
+	});
+
+	User.beforeCreate((user, options) => {
+		if (user.password != undefined) {
+			return bcrypt.hash(user.password, 10)
+				.then(hash => {
+					user.password = hash;
+				})
+				.catch(err => {
+					throw new Error();
+				});
+		}
 	});
 
 	return User;

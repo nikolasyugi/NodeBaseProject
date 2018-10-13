@@ -16,7 +16,7 @@ var http = modules.http.createServer(app);
 
 var sequelize = require(__basedir + '/configDB.js')(modules.Sequelize, keys);
 
-var schemas = require(__basedir + '/configSchemas.js')(modules.Sequelize, sequelize);
+var schemas = require(__basedir + '/configSchemas.js')(modules.Sequelize, sequelize, modules.bcrypt);
 
 var Op = modules.Sequelize.Op;
 
